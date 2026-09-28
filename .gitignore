@@ -1,0 +1,14 @@
+venv/
+__pycache__/
+*.pyc
+
+data/keys/*.pem
+data/faces/*/
+data/faces/face_model.yml
+data/faces/labels.txt
+data/documents/*.enc
+data/documents/metadata.json
+data/decrypted/*
+data/users.json
+data/audit/audit.json
+uploads/*

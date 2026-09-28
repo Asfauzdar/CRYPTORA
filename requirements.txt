@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+python-multipart
+cryptography
+opencv-contrib-python
+numpy
+jinja2

@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CRYPTORA — Secure Document Access</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">C</div>
+
+            <div>
+                <div class="brand-name">CRYPTORA</div>
+                <div class="brand-sub">
+                    Secure document access
+                </div>
+            </div>
+
+        </div>
+
+
+        <nav class="side-nav">
+
+            <a class="nav-item active" href="#dashboard">
+                ⌂ <span>Dashboard</span>
+            </a>
+
+            <a class="nav-item" href="#recipients">
+                ♙ <span>Recipients</span>
+            </a>
+
+            <a class="nav-item" href="#encrypt">
+                ↑ <span>Encrypt document</span>
+            </a>
+
+            <a class="nav-item" href="#decrypt">
+                ▣ <span>Decrypt document</span>
+            </a>
+
+            <a class="nav-item" href="#audit">
+                ≡ <span>Audit & provenance</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-note">
+
+            <span class="status-dot"></span>
+
+            <div>
+                <strong>System ready</strong>
+                <small>Local prototype</small>
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-footer">
+            CRYPTORA v1.0 · Hackathon prototype
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content" id="dashboard">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    SECURE DOCUMENT WORKSPACE
+                </p>
+
+                <h1>
+                    Good to see you.
+                </h1>
+
+                <p class="topbar-copy">
+                    Encrypt documents, verify recipients and keep a
+                    tamper-evident access history.
+                </p>
+
+            </div>
+
+
+            <div class="topbar-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>Protection active</strong>
+
+                    <small>
+                        AES-256-GCM · SHA-256 ledger
+                    </small>
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= SECURITY STRIP ================= -->
+
+        <section class="security-strip">
+
+            <div>
+                <span class="strip-icon">✓</span>
+
+                <span>
+                    <b>Encryption</b>
+                    <small>AES-256-GCM</small>
+                </span>
+            </div>
+
+
+            <div>
+                <span class="strip-icon">↔</span>
+
+                <span>
+                    <b>Key protection</b>
+                    <small>RSA-OAEP per recipient</small>
+                </span>
+            </div>
+
+
+            <div>
+                <span class="strip-icon">◉</span>
+
+                <span>
+                    <b>Identity</b>
+                    <small>Face verification</small>
+                </span>
+            </div>
+
+
+            <div>
+                <span class="strip-icon">#</span>
+
+                <span>
+                    <b>Provenance</b>
+                    <small>Signed hash chain</small>
+                </span>
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= WORKSPACE ================= -->
+
+        <section class="workspace-grid">
+
+
+            <!-- ================= REGISTER ================= -->
+
+            <article class="panel" id="recipients">
+
+                <div class="panel-heading">
+
+                    <div class="section-number">
+                        01
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Register a recipient
+                        </h2>
+
+                        <p>
+                            Create a cryptographic identity and
+                            enroll one face.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <label for="enrollUsername">
+                    Username
+                </label>
+
+                <input
+                    id="enrollUsername"
+                    placeholder="e.g. rahul"
+                    autocomplete="off"
+                >
+
+
+                <div class="camera-box">
+
+                    <video
+                        id="enrollVideo"
+                        autoplay
+                        playsinline>
+                    </video>
+
+                    <div class="camera-label">
+
+                        <span class="status-dot"></span>
+
+                        Camera preview
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="captureEnroll()">
+
+                    Capture & register
+
+                    <span>→</span>
+
+                </button>
+
+
+                <div
+                    id="enrollStatus"
+                    class="status">
+                </div>
+
+            </article>
+
+
+
+            <!-- ================= ENCRYPT ================= -->
+
+            <article class="panel" id="encrypt">
+
+                <div class="panel-heading">
+
+                    <div class="section-number">
+                        02
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Encrypt & share
+                        </h2>
+
+                        <p>
+                            Protect a document and create
+                            recipient-specific key wraps.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <label for="document">
+                    Document
+                </label>
+
+                <div class="file-picker">
+
+                    <input
+                        type="file"
+                        id="document"
+                    >
+
+                </div>
+
+
+                <label for="recipientsInput">
+                    Authorized recipients
+                </label>
+
+                <input
+                    id="recipientsInput"
+                    placeholder="e.g. rahul, priya"
+                    autocomplete="off"
+                >
+
+
+                <p class="field-help">
+                    Use the usernames registered above,
+                    separated by commas.
+                </p>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="encryptDocument()">
+
+                    Encrypt & share
+
+                    <span>→</span>
+
+                </button>
+
+
+                <div
+                    id="encryptStatus"
+                    class="status">
+                </div>
+
+            </article>
+
+
+
+            <!-- ================= DECRYPT ================= -->
+
+            <article
+                class="panel panel-wide"
+                id="decrypt">
+
+                <div class="panel-heading">
+
+                    <div class="section-number">
+                        03
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Face-verified decryption
+                        </h2>
+
+                        <p>
+                            Both authorization and face verification
+                            must pass before the key is released.
+                        </p>
+
+                    </div>
+
+
+                    <span class="security-badge">
+                        2-step access
+                    </span>
+
+                </div>
+
+
+
+                <div class="decrypt-layout">
+
+
+                    <!-- DECRYPT FORM -->
+
+                    <div class="decrypt-form">
+
+
+                        <label for="documentId">
+                            Document ID
+                        </label>
+
+                        <input
+                            id="documentId"
+                            placeholder="Generated after encryption"
+                        >
+
+
+                        <label for="decryptUsername">
+                            Recipient username
+                        </label>
+
+                        <input
+                            id="decryptUsername"
+                            placeholder="e.g. rahul"
+                            autocomplete="off"
+                        >
+
+
+                        <div class="check-list">
+
+                            <div>
+                                <span>1</span>
+                                Recipient is authorized
+                            </div>
+
+                            <div>
+                                <span>2</span>
+                                Face matches the registered identity
+                            </div>
+
+                            <div>
+                                <span>3</span>
+                                Decryption event is recorded
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="primary-btn"
+                            onclick="decryptDocument()">
+
+                            Verify face & decrypt
+
+                            <span>→</span>
+
+                        </button>
+
+
+                        <div
+                            id="decryptStatus"
+                            class="status">
+                        </div>
+
+
+                        <a
+                            id="downloadLink"
+                            class="download"
+                            style="display:none">
+
+                            Download decrypted document ↓
+
+                        </a>
+
+                    </div>
+
+
+
+                    <!-- DECRYPT CAMERA -->
+
+                    <div class="camera-box decrypt-camera">
+
+                        <video
+                            id="decryptVideo"
+                            autoplay
+                            playsinline>
+                        </video>
+
+                        <div class="camera-label">
+
+                            <span class="status-dot"></span>
+
+                            Live identity check
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ================= AUDIT ================= -->
+
+            <article
+                class="panel panel-wide"
+                id="audit">
+
+                <div class="panel-heading audit-heading">
+
+                    <div class="section-number">
+                        04
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Audit & provenance
+                        </h2>
+
+                        <p>
+                            Every important event is linked to
+                            the previous hash so tampering can
+                            be detected.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="secondary-btn"
+                        onclick="loadAudit()">
+
+                        Verify ledger
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="auditSummary"
+                    class="audit-summary">
+
+                    <span class="audit-state">
+                        Not checked
+                    </span>
+
+                    <span>
+                        Run verification to inspect the
+                        current ledger.
+                    </span>
+
+                </div>
+
+
+                <!-- IMPORTANT:
+                     Changed ID from audit to auditData
+                     to avoid duplicate IDs -->
+
+                <pre id="auditData">
+Click “Verify ledger” to inspect the audit chain.
+                </pre>
+
+            </article>
+
+
+        </section>
+
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer class="footer">
+
+            <span>CRYPTORA</span>
+
+            <span>
+                Secure document sharing
+            </span>
+
+            <span>
+                Face verification
+            </span>
+
+            <span>
+                Immutable provenance
+            </span>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- ========================================================= -->
+<!-- ======================= JAVASCRIPT ====================== -->
+<!-- ========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   CAMERA VARIABLES
+========================================================= */
+
+let enrollStream = null;
+let decryptStream = null;
+
+
+
+/* =========================================================
+   START CAMERA
+========================================================= */
+
+async function startCamera(videoId) {
+
+    const video = document.getElementById(videoId);
+
+    if (!video) {
+        throw new Error("Camera element not found.");
+    }
+
+    const stream =
+        await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: false
+        });
+
+    video.srcObject = stream;
+
+    return stream;
+}
+
+
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
+
+window.onload = async function () {
+
+    try {
+
+        enrollStream =
+            await startCamera("enrollVideo");
+
+        decryptStream =
+            await startCamera("decryptVideo");
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Camera error:",
+            error
+        );
+
+        document
+            .querySelectorAll(".camera-label")
+            .forEach(el => {
+
+                el.innerHTML =
+                    '<span class="status-dot warning"></span> Camera permission needed';
+
+            });
+
+    }
+
+};
+
+
+
+/* =========================================================
+   CAPTURE IMAGE
+========================================================= */
+
+function captureImage(videoId) {
+
+    const video =
+        document.getElementById(videoId);
+
+
+    if (
+        !video ||
+        !video.videoWidth ||
+        !video.videoHeight
+    ) {
+
+        throw new Error(
+            "Camera is not ready yet. Please allow camera access and try again."
+        );
+
+    }
+
+
+    const canvas =
+        document.createElement("canvas");
+
+
+    canvas.width =
+        video.videoWidth;
+
+    canvas.height =
+        video.videoHeight;
+
+
+    const context =
+        canvas.getContext("2d");
+
+
+    context.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    return new Promise(resolve => {
+
+        canvas.toBlob(
+            blob => resolve(blob),
+            "image/jpeg",
+            0.9
+        );
+
+    });
+
+}
+
+
+
+/* =========================================================
+   REGISTER RECIPIENT
+========================================================= */
+
+async function captureEnroll() {
+
+    const username =
+        document
+        .getElementById("enrollUsername")
+        .value
+        .trim();
+
+
+    const status =
+        document.getElementById(
+            "enrollStatus"
+        );
+
+
+    if (!username) {
+
+        status.innerText =
+            "✕ Please enter a username.";
+
+        status.className =
+            "status error";
+
+        return;
+
+    }
+
+
+    try {
+
+        const image =
+            await captureImage(
+                "enrollVideo"
+            );
+
+
+        const form =
+            new FormData();
+
+
+        form.append(
+            "username",
+            username
+        );
+
+
+        form.append(
+            "image",
+            image,
+            "face.jpg"
+        );
+
+
+        status.innerText =
+            "Registering recipient...";
+
+
+        status.className =
+            "status pending";
+
+
+        const response =
+            await fetch(
+                "/enroll",
+                {
+                    method: "POST",
+                    body: form
+                }
+            );
+
+
+        const rawText =
+            await response.text();
+
+
+        console.log(
+            "Enroll response:",
+            rawText
+        );
+
+
+        let result;
+
+        try {
+
+            result =
+                JSON.parse(rawText);
+
+        }
+
+        catch {
+
+            throw new Error(
+                "Invalid server response."
+            );
+
+        }
+
+
+        if (
+            response.ok &&
+            result.success
+        ) {
+
+            status.innerText =
+                "✓ " + result.message;
+
+            status.className =
+                "status success";
+
+        }
+
+        else {
+
+            status.innerText =
+                "✕ " +
+                (
+                    result.message ||
+                    result.detail ||
+                    "Registration failed."
+                );
+
+            status.className =
+                "status error";
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "ENROLL ERROR:",
+            error
+        );
+
+        status.innerText =
+            "✕ " + error.message;
+
+        status.className =
+            "status error";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   ENCRYPT DOCUMENT
+========================================================= */
+
+async function encryptDocument() {
+
+
+    const file =
+        document
+        .getElementById("document")
+        .files[0];
+
+
+    const recipients =
+        document
+        .getElementById("recipientsInput")
+        .value
+        .trim();
+
+
+    const status =
+        document.getElementById(
+            "encryptStatus"
+        );
+
+
+    /* ---------- VALIDATION ---------- */
+
+    if (!file) {
+
+        status.innerText =
+            "✕ Please choose a document.";
+
+        status.className =
+            "status error";
+
+        return;
+
+    }
+
+
+    if (!recipients) {
+
+        status.innerText =
+            "✕ Please enter at least one recipient.";
+
+        status.className =
+            "status error";
+
+        return;
+
+    }
+
+
+
+    /* ---------- FORM DATA ---------- */
+
+    const form =
+        new FormData();
+
+
+    form.append(
+        "document",
+        file
+    );
+
+
+    form.append(
+        "recipients",
+        recipients
+    );
+
+
+
+    /* ---------- STATUS ---------- */
+
+    status.innerText =
+        "⏳ Encrypting document...";
+
+    status.className =
+        "status pending";
+
+
+
+    try {
+
+
+        console.log(
+            "Sending document:",
+            file.name
+        );
+
+        console.log(
+            "Recipients:",
+            recipients
+        );
+
+
+
+        /* ---------- REQUEST ---------- */
+
+        const response =
+            await fetch(
+                "/encrypt",
+                {
+                    method: "POST",
+                    body: form
+                }
+            );
+
+
+
+        /* ---------- RAW RESPONSE ---------- */
+
+        const rawText =
+            await response.text();
+
+
+        console.log(
+            "Encrypt HTTP status:",
+            response.status
+        );
+
+
+        console.log(
+            "Encrypt raw response:",
+            rawText
+        );
+
+
+
+        /* ---------- JSON ---------- */
+
+        let result;
+
+
+        try {
+
+            result =
+                JSON.parse(rawText);
+
+        }
+
+        catch (error) {
+
+            throw new Error(
+                "Server returned invalid response: " +
+                rawText.substring(0, 250)
+            );
+
+        }
+
+
+
+        /* ---------- SERVER ERROR ---------- */
+
+        if (!response.ok) {
+
+            throw new Error(
+
+                result.message ||
+                result.detail ||
+                (
+                    "Server error: " +
+                    response.status
+                )
+
+            );
+
+        }
+
+
+
+        /* ---------- SUCCESS ---------- */
+
+        if (
+            result.success &&
+            result.document_id
+        ) {
+
+
+            const documentId =
+                result.document_id;
+
+
+
+            /* Show success */
+
+            status.innerText =
+                "✓ Document encrypted successfully! ID: " +
+                documentId;
+
+
+            status.className =
+                "status success";
+
+
+
+            /* Automatically fill Document ID */
+
+            document
+                .getElementById(
+                    "documentId"
+                )
+                .value =
+                documentId;
+
+
+
+            /* Automatically fill recipient */
+
+            document
+                .getElementById(
+                    "decryptUsername"
+                )
+                .value =
+                recipients
+                .split(",")[0]
+                .trim();
+
+
+
+            /* Scroll to decrypt section */
+
+            setTimeout(() => {
+
+                document
+                    .getElementById(
+                        "decrypt"
+                    )
+                    .scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+            }, 500);
+
+
+
+        }
+
+        else {
+
+
+            throw new Error(
+
+                result.message ||
+                "Encryption failed. Document ID was not returned."
+
+            );
+
+        }
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "ENCRYPT ERROR:",
+            error
+        );
+
+
+        status.innerText =
+            "✕ " + error.message;
+
+
+        status.className =
+            "status error";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   DECRYPT DOCUMENT
+========================================================= */
+
+async function decryptDocument() {
+
+
+    const documentId =
+        document
+        .getElementById(
+            "documentId"
+        )
+        .value
+        .trim();
+
+
+    const username =
+        document
+        .getElementById(
+            "decryptUsername"
+        )
+        .value
+        .trim();
+
+
+    const status =
+        document.getElementById(
+            "decryptStatus"
+        );
+
+
+
+    /* ---------- VALIDATION ---------- */
+
+    if (
+        !documentId ||
+        !username
+    ) {
+
+        status.innerText =
+            "✕ Enter the document ID and recipient username.";
+
+        status.className =
+            "status error";
+
+        return;
+
+    }
+
+
+
+    try {
+
+
+        const image =
+            await captureImage(
+                "decryptVideo"
+            );
+
+
+        const form =
+            new FormData();
+
+
+        form.append(
+            "document_id",
+            documentId
+        );
+
+
+        form.append(
+            "username",
+            username
+        );
+
+
+        form.append(
+            "image",
+            image,
+            "face.jpg"
+        );
+
+
+
+        status.innerText =
+            "⏳ Checking authorization and face...";
+
+
+        status.className =
+            "status pending";
+
+
+
+        const response =
+            await fetch(
+                "/decrypt",
+                {
+                    method: "POST",
+                    body: form
+                }
+            );
+
+
+
+        const rawText =
+            await response.text();
+
+
+        console.log(
+            "Decrypt response:",
+            rawText
+        );
+
+
+        let result;
+
+
+        try {
+
+            result =
+                JSON.parse(rawText);
+
+        }
+
+        catch {
+
+            throw new Error(
+                "Invalid server response."
+            );
+
+        }
+
+
+
+        if (
+            response.ok &&
+            result.success
+        ) {
+
+
+            status.innerText =
+                "✓ Face verified · document decrypted · event " +
+                result.event_id;
+
+
+            status.className =
+                "status success";
+
+
+
+            const link =
+                document.getElementById(
+                    "downloadLink"
+                );
+
+
+            link.href =
+                result.download;
+
+
+            link.style.display =
+                "inline-flex";
+
+        }
+
+        else {
+
+
+            status.innerText =
+                "✕ " +
+                (
+                    result.message ||
+                    result.detail ||
+                    "Decryption failed."
+                );
+
+
+            status.className =
+                "status error";
+
+
+            document
+                .getElementById(
+                    "downloadLink"
+                )
+                .style.display =
+                "none";
+
+        }
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "DECRYPT ERROR:",
+            error
+        );
+
+
+        status.innerText =
+            "✕ " + error.message;
+
+
+        status.className =
+            "status error";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   AUDIT LEDGER
+========================================================= */
+
+async function loadAudit() {
+
+
+    const audit =
+        document.getElementById(
+            "auditData"
+        );
+
+
+    const summary =
+        document.getElementById(
+            "auditSummary"
+        );
+
+
+    audit.innerText =
+        "Checking ledger...";
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                "/audit"
+            );
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "Audit response:",
+            result
+        );
+
+
+        audit.innerText =
+            JSON.stringify(
+                result,
+                null,
+                2
+            );
+
+
+        const valid =
+            result.valid === true;
+
+
+
+        summary.innerHTML =
+
+            '<span class="audit-state ' +
+
+            (
+                valid
+                ? "valid"
+                : "invalid"
+            ) +
+
+            '">' +
+
+            (
+                valid
+                ? "✓ Ledger valid"
+                : "✕ Ledger check failed"
+            ) +
+
+            '</span>' +
+
+            '<span>' +
+
+            (
+                valid
+                ? "Hash links are consistent."
+                : "Review the event chain for tampering."
+            ) +
+
+            '</span>';
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "AUDIT ERROR:",
+            error
+        );
+
+
+        audit.innerText =
+            "Could not load the audit ledger.";
+
+
+        summary.innerHTML =
+            '<span class="audit-state invalid">✕ Server unavailable</span>';
+
+    }
+
+}
+
+
+</script>
+
+</body>
+</html>
